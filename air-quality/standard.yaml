@@ -1,0 +1,102 @@
+esphome:
+  name: air-quality-${devicename}
+  friendly_name: Air Quality ${display_devicename}
+  on_boot:
+  - light.turn_on: 
+      id: ${devicename}_neopixel
+      brightness: 25%
+      color_mode: RGB_WHITE
+      red: 0.0
+      green: 0.0
+      blue: 0.0
+      white: 1.0
+      flash_length : 1s
+      
+esp8266:
+  board: d1_mini
+
+i2c:
+  sda: GPIO4
+  scl: GPIO5
+
+uart:
+  rx_pin:
+    number: GPIO3
+  tx_pin:
+    number: GPIO1
+  baud_rate: 9600
+  
+light:
+  - platform: neopixelbus
+    id: ${devicename}_neopixel
+    gamma_correct: 1 # this makes the channels "pure"
+    type: GRBW
+    variant: SK6812
+    pin: GPIO0
+    num_leds: 1
+    name: "NeoPixel"
+
+sensor:
+  - platform: sgp30
+    eco2:
+      name: "eCO2"
+      accuracy_decimals: 0
+      filters:
+        - sliding_window_moving_average:
+            window_size: 15
+            send_every: 15
+    tvoc:
+      name: "TVOC"
+      accuracy_decimals: 1
+      filters:
+        - sliding_window_moving_average:
+            window_size: 15
+            send_every: 15
+    eco2_baseline:
+      name: "eCO2 Baseline"
+    tvoc_baseline:
+      name: "TVOC Baseline"
+    baseline:
+      eco2_baseline: ${eco2_baseline}
+      tvoc_baseline: ${tvoc_baseline}
+    compensation:
+      temperature_source: ${devicename}_temperature
+      humidity_source: ${devicename}_humidity
+    store_baseline: yes
+    address: 0x58
+    update_interval: 1s
+  - platform: scd30
+    co2:
+      name: "CO2"
+      accuracy_decimals: 0
+    temperature:
+      name: "Temperature"
+      accuracy_decimals: 1
+      id: ${devicename}_temperature
+    humidity:
+      name: "Humidity"
+      id: ${devicename}_humidity
+      accuracy_decimals: 1
+    #temperature_offset: 1.5 °C
+    #ambient_pressure_compensation: !lambda "id(${devicename}_pressure)" # TODO figure out
+    address: 0x61
+    update_interval: 15s
+  - platform: bmp280
+    temperature:
+      name: "Temperature 2"
+      accuracy_decimals: 1
+      oversampling: 16x
+    pressure:
+      name: "Pressure"
+      id: ${devicename}_pressure
+    address: 0x76
+    update_interval: 15s
+  - platform: pmsx003
+    type: PMSX003
+    pm_1_0:
+      name: "Particulate Matter <1.0µm Concentration"
+    pm_2_5:
+      name: "Particulate Matter <2.5µm Concentration"
+    pm_10_0:
+      name: "Particulate Matter <10.0µm Concentration"
+    update_interval: 30s
