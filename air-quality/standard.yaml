@@ -1,6 +1,6 @@
 esphome:
   name: air-quality-${devicename}
-  friendly_name: Air Quality ${display_devicename}
+  friendly_name: ${display_devicename} Air Quality
   on_boot:
   - light.turn_on: 
       id: ${devicename}_neopixel
@@ -40,6 +40,7 @@ sensor:
   - platform: sgp30
     eco2:
       name: "eCO2"
+      disabled_by_default: true
       accuracy_decimals: 0
       filters:
         - sliding_window_moving_average:
