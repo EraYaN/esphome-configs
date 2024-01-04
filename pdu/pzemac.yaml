@@ -52,7 +52,7 @@ sensor:
       id: "power_ac1"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 1
 
@@ -88,7 +88,7 @@ sensor:
       id: "power_ac2"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 2
 
@@ -124,7 +124,7 @@ sensor:
       id: "power_ac3"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 3
 
@@ -160,7 +160,7 @@ sensor:
       id: "power_ac4"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 4
 
@@ -196,7 +196,7 @@ sensor:
       id: "power_ac5"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 5
 
@@ -232,7 +232,7 @@ sensor:
       id: "power_ac6"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 6
 
@@ -268,7 +268,7 @@ sensor:
       id: "power_ac7"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 6
 
@@ -304,7 +304,7 @@ sensor:
       id: "power_ac8"
       filters:
         - multiply: 1
-      accuracy_decimals: 0
+      accuracy_decimals: 1
     update_interval: never
     address: 8
 
@@ -409,17 +409,16 @@ sensor:
     lambda: |-
       return id(energy_ac1_daily).state + id(energy_ac2_daily).state + id(energy_ac3_daily).state + id(energy_ac4_daily).state + id(energy_ac5_daily).state + id(energy_ac6_daily).state + id(energy_ac7_daily).state + id(energy_ac8_daily).state ;
 
-
 time:
   - platform: homeassistant
     id: homeassistant_time
 
 switch:
   - platform: restart
-    name: "${display_devicename}_restart"
+    name: "${devicename}_restart"
 
   - platform: uart
-    name: "${display_devicename}_reset"
+    name: "${devicename}_reset"
     data: [0x01, 0x42, 0x80, 0x11]
 
 interval:
