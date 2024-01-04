@@ -7,11 +7,11 @@ esp32:
 
 uart:
   rx_pin:
-    number: 15
+    number: GPIO16
   tx_pin:
-    number: 17
+    number: GPIO17
   baud_rate: 9600
-  stop_bits: 1
+  stop_bits: 2
 
 modbus:
 
