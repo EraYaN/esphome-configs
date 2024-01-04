@@ -165,7 +165,7 @@ sensor:
     address: 4
 
   - platform: pzemac
-    id: pzemac3
+    id: pzemac5
     energy:
       name: "energy_ac5"
       id: "energy_ac5"
