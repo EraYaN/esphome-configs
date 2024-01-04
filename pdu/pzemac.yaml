@@ -416,10 +416,10 @@ time:
 
 switch:
   - platform: restart
-    name: "${device_name}_Restart"
+    name: "${display_devicename}_restart"
 
   - platform: uart
-    name: "${device_name}_Reset"
+    name: "${display_devicename}_reset"
     data: [0x01, 0x42, 0x80, 0x11]
 
 interval:
