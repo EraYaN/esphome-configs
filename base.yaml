@@ -1,7 +1,9 @@
 # Enable logging
 logger:
   baud_rate: 0
-  level: INFO
+  level: INFO  
+  logs:
+    component: ERROR
 
 # Enable Home Assistant API
 api:
