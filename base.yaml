@@ -12,6 +12,7 @@ api:
   reboot_timeout: 1h
 
 ota:
+  platform: esphome
   password: ""
 
 web_server:
