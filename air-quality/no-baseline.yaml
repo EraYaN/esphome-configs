@@ -79,7 +79,7 @@ sensor:
     #ambient_pressure_compensation: !lambda "id(${devicename}_pressure)" # TODO figure out
     address: 0x61
     update_interval: 15s
-  - platform: bmp280
+  - platform: bmp280_i2c
     temperature:
       name: "Temperature 2"
       accuracy_decimals: 1
